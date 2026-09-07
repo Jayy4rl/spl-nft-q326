@@ -15,7 +15,7 @@ const signer = createSignerFromKeypair(umi, keypair);
 
 umi.use(
   irysUploader({
-    address: "https://devnet.irys.xyz/",
+    address: "https://devnet.irys.xyz",
   }),
 );
 
@@ -25,13 +25,20 @@ umi.use(signerIdentity(signer));
   try {
     //change the image uri to your image uri obtained from nft_image.ts
     const image =
-      "https://gateway.irys.xyz/5EDyiNrMWfhjdsEwXLrwkHPwZoZB2m1A2Kudrfxo1tpr";
+      "https://gateway.irys.xyz/58ibBiK263ifDeqzqaMGMfAnFa2Nqxr5qN1M597AW95f";
 
     //json scheme : https://www.metaplex.com/docs/smart-contracts/core/json-schema
     //change the metadata
-    // const metadata =
-    // const myUri =
-    // console.log(`metadata uri: ${myUri} `);
+    const metadata = {
+      name: "My Image",
+      description:
+        "Collection of my pinterest images. This is the number 1/10.",
+      image,
+      category: "image",
+    };
+
+    const myUri = await umi.uploader.uploadJson(metadata);
+    console.log(`metadata uri: ${myUri} `);
   } catch (error) {
     console.log("error", error);
   }

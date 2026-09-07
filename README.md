@@ -57,6 +57,19 @@ Uses **@solana/kit** and **@solana-program/token** for transactions, and **mpl-t
 
 Run them in order. Each script logs the addresses/signatures you'll need to paste into the next one.
 
+Mint: 29doABEN4W5E1NZEZStVxHtrrvD44L1Mj62b2t8iZZtj
+  - Signature:
+    4RBUf2guydZVLJP2ndrTWBiGerqNTzRj8DD7LCFD34ZDejSn3FU8fGaAWFCiMVnXgCLd51qs4iDeeBD1HHTGtczA
+
+
+Your ata is : 6zXuSJdxwYZiyuZNC8C69VLD7hUmvry22AqXmyQF1ZvW
+mint txid: 2BsRFkdUGiiJo5yJUaNifGdn2JK6ejShqVV6aSPtTNML3LzawSn7cyGksmenKjEPsWNCEg41TDKRYLws6QEaZ6T5
+
+
+
+Your fromAta is : 6zXuSJdxwYZiyuZNC8C69VLD7hUmvry22AqXmyQF1ZvW
+Your toAta is : 4hk7ShZYNCXhfpQ6v9Sm7rfgySd8CTnasGxNwwib4Vi9
+mint txid: 5co8djfY8eAGqiigTyhVrHi8EJnwG7Yfv7MmWxetdhzNPyKraY9eKPwXmR1MfZTDVHBZ6VZ9qKPUNQjWqaGe7o8R
 ---
 
 ## NFT
@@ -70,3 +83,12 @@ Uses **@solana/kit** and **mpl-core** via UMI. Images and metadata are stored on
 | `nft_mint.ts` | `npm run nft:mint` | Mints the NFT on-chain using the metadata URI |
 
 Run them in order. Paste the URI logged by each step into the next script before running it.
+
+Your image URI:  https://gateway.irys.xyz/58ibBiK263ifDeqzqaMGMfAnFa2Nqxr5qN1M597AW95f
+metadata uri: https://gateway.irys.xyz/CaV2Z2acs3325MkyE9jYw1T3xC9DJwBaGWL1pgQBqKfW
+signature 4mAXXVo6gAKeqRxFCZETxsG4MKji9uhAjVHHntmfiWJMN2aNhdLTdFwRcYeyNSTizniY72VWir6GqVGPj8ysvnj5, asset : DEPzJiQk2Akq2D4moipxQGfLE8aP2jeBtmnQb1t7XVMv
+
+Current name:: My NFT | uri: https://gateway.irys.xyz/CaV2Z2acs3325MkyE9jYw1T3xC9DJwBaGWL1pgQBqKfW
+new metadata uri: https://gateway.irys.xyz/85wfggoo1fTgi1Ku5b4StaweGWbP6aXu8k3aj6TrGRvj
+signature: 5saekDAApUqMKtAM7b3HXnMGaZ2epTZtuXKQcULoZtGBNkvdhJJ2mnoUzi1adiUfFrARSuDpHSLoCzCgTosUkXfJ
+Updated name: My NFT | uri: https://gateway.irys.xyz/CaV2Z2acs3325MkyE9jYw1T3xC9DJwBaGWL1pgQBqKfW
