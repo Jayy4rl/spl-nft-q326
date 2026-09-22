@@ -1,94 +1,150 @@
-# scripts-solana
+# SPL Token & NFT on Solana Devnet
 
-Scripts for creating SPL tokens and NFTs on Solana devnet.
+Scripts that mint and transfer an SPL token, mint an NFT with **MPL Core**, and update
+that NFT's name and metadata as its update authority — all on Solana devnet.
+
+Every result below is live on devnet and verified by the test suite (`npm test`).
+
+**Wallet:** [`8XZ6xMRiAPPEYnoY4Rf1NgvUhkkbWGZE3ceMa5cZErZ6`](https://explorer.solana.com/address/8XZ6xMRiAPPEYnoY4Rf1NgvUhkkbWGZE3ceMa5cZErZ6?cluster=devnet)
+
+---
+
+## 1. SPL token
+
+Created a mint, minted 100 tokens into my associated token account, and transferred
+25 of them to another wallet.
+
+| | |
+|---|---|
+| Mint | [`29doABEN4W5E1NZEZStVxHtrrvD44L1Mj62b2t8iZZtj`](https://explorer.solana.com/address/29doABEN4W5E1NZEZStVxHtrrvD44L1Mj62b2t8iZZtj?cluster=devnet) |
+| Decimals | 6 |
+| Supply | 100 tokens (`100000000` raw units) |
+| Mint authority | my wallet |
+
+| Step | Signature |
+|---|---|
+| Create mint | [`4RBUf2gu…`](https://explorer.solana.com/tx/4RBUf2guydZVLJP2ndrTWBiGerqNTzRj8DD7LCFD34ZDejSn3FU8fGaAWFCiMVnXgCLd51qs4iDeeBD1HHTGtczA?cluster=devnet) |
+| Mint 100 tokens | [`2BsRFkdU…`](https://explorer.solana.com/tx/2BsRFkdUGiiJo5yJUaNifGdn2JK6ejShqVV6aSPtTNML3LzawSn7cyGksmenKjEPsWNCEg41TDKRYLws6QEaZ6T5?cluster=devnet) |
+| Transfer 25 tokens | [`5co8djfY…`](https://explorer.solana.com/tx/5co8djfY8eAGqiigTyhVrHi8EJnwG7Yfv7MmWxetdhzNPyKraY9eKPwXmR1MfZTDVHBZ6VZ9qKPUNQjWqaGe7o8R?cluster=devnet) |
+
+Token accounts:
+
+| Owner | ATA | Balance |
+|---|---|---|
+| [`8XZ6xMRi…`](https://explorer.solana.com/address/8XZ6xMRiAPPEYnoY4Rf1NgvUhkkbWGZE3ceMa5cZErZ6?cluster=devnet) (me) | [`6zXuSJdx…`](https://explorer.solana.com/address/6zXuSJdxwYZiyuZNC8C69VLD7hUmvry22AqXmyQF1ZvW?cluster=devnet) | 50 |
+| [`aczhoP2N…`](https://explorer.solana.com/address/aczhoP2NX5KzCB4s4Xw8FXDxLcw3gVnWnkRDhBt935E?cluster=devnet) | [`4hk7ShZY…`](https://explorer.solana.com/address/4hk7ShZYNCXhfpQ6v9Sm7rfgySd8CTnasGxNwwib4Vi9?cluster=devnet) | 25 |
+| [`9EUd4VNc…`](https://explorer.solana.com/address/9EUd4VNcjMAysd7zQk3Q1a4tb28BYndLNBAQDiYnHJ64?cluster=devnet) | [`3kNp8K1G…`](https://explorer.solana.com/address/3kNp8K1GTtvNEMjGrda3ixbpc4395DiTzZ5i3xUNA8ym?cluster=devnet) | 25 |
+
+## 2. NFT (MPL Core)
+
+Uploaded the image and a metadata JSON to Irys, then minted the asset.
+
+| | |
+|---|---|
+| Asset | [`DEPzJiQk2Akq2D4moipxQGfLE8aP2jeBtmnQb1t7XVMv`](https://explorer.solana.com/address/DEPzJiQk2Akq2D4moipxQGfLE8aP2jeBtmnQb1t7XVMv?cluster=devnet) |
+| Owner | my wallet |
+| Update authority | my wallet |
+| Image | [`58ibBiK2…`](https://gateway.irys.xyz/58ibBiK263ifDeqzqaMGMfAnFa2Nqxr5qN1M597AW95f) |
+| Signature | [`4mAXXVo6…`](https://explorer.solana.com/tx/4mAXXVo6gAKeqRxFCZETxsG4MKji9uhAjVHHntmfiWJMN2aNhdLTdFwRcYeyNSTizniY72VWir6GqVGPj8ysvnj5?cluster=devnet) |
+
+## 3. Updating the NFT
+
+Uploaded a revised metadata JSON, then changed the on-chain name and URI as the
+asset's update authority.
+
+| | Before | After |
+|---|---|---|
+| Name | `My NFT` | `My Updated NFT` |
+| Metadata URI | [`CaV2Z2ac…`](https://gateway.irys.xyz/CaV2Z2acs3325MkyE9jYw1T3xC9DJwBaGWL1pgQBqKfW) | [`Hs6ho3vS…`](https://gateway.irys.xyz/Hs6ho3vSQCQ1hPuBxacKhZBhP8v9u1p1jnVQ6dDUDrVE) |
+| Rarity | `Common` | `Legendary` |
+
+Signature: [`3kJZ9mdw…`](https://explorer.solana.com/tx/3kJZ9mdwFYDMdDuT6KCBzF5HFDzyPhWqmgCBLFXcyGp7npytfyfGLvNbAWWNDKyTqaJeicWAbDLvD6wfCo8RjBKV?cluster=devnet)
 
 ---
 
 ## Setup
 
-### 1. Add your wallet
-
-Place your devnet wallet keypair file at the project root:
-
-```
-root/
-└── devnet-wallet.json   ← here
-```
-
-It should be a JSON array of numbers, e.g. `[174, 23, ...]`.
-
-### 2. Install dependencies
-
 ```bash
 npm install
 ```
 
+Place a devnet keypair (a JSON array of 64 numbers) at the project root as
+`devnet-wallet.json`, and the image to mint as `_.jpeg`. Fund the wallet with
+`solana airdrop 2 --url devnet`.
+
+The public devnet RPC rate-limits heavily. To use your own, set:
+
 ```bash
-npm install --save-dev @types/node ts-node typescript
+export SOLANA_RPC_URL="https://devnet.helius-rpc.com/?api-key=..."
 ```
 
-### 3. Add your image
+## Running the scripts
 
-Place your image at the project root.
+```bash
+npm run spl:init       # create the mint account
+npm run spl:mint       # create the ATA and mint 100 tokens
+npm run spl:transfer   # transfer 25 tokens
 
+npm run nft:image      # upload the image     → image URI
+npm run nft:metadata   # upload the JSON      → metadata URI
+npm run nft:mint       # mint the MPL Core asset
+npm run nft:update     # update the name and metadata
 ```
-root/
-└── image.jpeg   ← here
+
+Run them in order. Each script prints an address or URI that goes into the next one —
+paste it into the constant at the top of the following script before running it.
+
+## Tests
+
+```bash
+npm test
 ```
+
+22 tests across 3 files, using [Vitest](https://vitest.dev/). They require no wallet
+and no SOL — every assertion is a public read against devnet, so the results above can
+be verified independently by cloning the repo and running them.
+
+| File | Covers |
+|---|---|
+| `tests/spl_mint.test.ts` | decimals, supply, mint authority, freeze authority |
+| `tests/spl_transfer.test.ts` | ATA derivation, owners, balances, account state |
+| `tests/nft.test.ts` | asset, owner, update authority, updated name and metadata |
+
+ATA addresses are derived from their seeds with `findAssociatedTokenPda` rather than
+hardcoded, so the tests prove the tokens sit at the canonical address wallets look
+them up by.
+
+![Tests passing](./tests.png)
 
 ---
 
-> Before running the scripts, go through these docs:
-> - [Solana token docs](https://solana.com/docs/tokens) — mint accounts, token accounts, and ATAs
-> - [Solana Kit](https://www.solanakit.com/) — the JS SDK used for building and sending transactions
-> - [Metaplex Token Metadata](https://www.metaplex.com/docs/smart-contracts/token-metadata) — attaching metadata to SPL tokens
-> - [Metaplex Core](https://www.metaplex.com/docs/smart-contracts/core) — the NFT standard used in the NFT scripts
+## How it works
 
-## SPL Token
+**Two SDKs.** The SPL scripts use [`@solana/kit`](https://www.solanakit.com/) with
+`@solana-program/token`; the NFT scripts use [Umi](https://developers.metaplex.com/umi)
+with `@metaplex-foundation/mpl-core`. They don't interoperate — only base58 address
+strings pass between them.
 
-Uses **@solana/kit** and **@solana-program/token** for transactions, and **mpl-token-metadata** via UMI for on-chain metadata.
+**Mint vs token account.** The mint defines the token — supply, decimals, authorities —
+and never holds a balance. Balances live in token accounts, one per owner per mint, at
+an Associated Token Account address derived from `[owner, token_program, mint]`.
 
-| Script | Command | What it does |
-|---|---|---|
-| `spl_init.ts` | `npm run spl:init` | Creates a new mint account |
-| `spl_metadata.ts` | `npm run spl:metadata` | Attaches a name, symbol, and URI to the mint |
-| `spl_mint.ts` | `npm run spl:mint` | Creates your associated token account and mints tokens into it |
-| `spl_transfer.ts` | `npm run spl:transfer` | Sends tokens to another wallet i.e ata to ata |
+**Decimals are display-only.** With 6 decimals, "100 tokens" is stored on chain as
+`100000000`. Instructions and tests work in raw units.
 
-Run them in order. Each script logs the addresses/signatures you'll need to paste into the next one.
+**NFT metadata is two uploads.** The image is uploaded first, then a JSON document
+referencing that image URI is uploaded second. Only the JSON's URI is stored on chain,
+alongside the name.
 
-Mint: 29doABEN4W5E1NZEZStVxHtrrvD44L1Mj62b2t8iZZtj
-  - Signature:
-    4RBUf2guydZVLJP2ndrTWBiGerqNTzRj8DD7LCFD34ZDejSn3FU8fGaAWFCiMVnXgCLd51qs4iDeeBD1HHTGtczA
+**Owner vs update authority.** MPL Core keeps these as separate fields. The owner can
+transfer or burn the asset; the update authority can change its name and metadata URI.
+`nft_update.ts` passes no `authority`, so Umi defaults to `umi.identity` — the
+transaction succeeds because that wallet holds that role.
 
+## References
 
-Your ata is : 6zXuSJdxwYZiyuZNC8C69VLD7hUmvry22AqXmyQF1ZvW
-mint txid: 2BsRFkdUGiiJo5yJUaNifGdn2JK6ejShqVV6aSPtTNML3LzawSn7cyGksmenKjEPsWNCEg41TDKRYLws6QEaZ6T5
-
-
-
-Your fromAta is : 6zXuSJdxwYZiyuZNC8C69VLD7hUmvry22AqXmyQF1ZvW
-Your toAta is : 4hk7ShZYNCXhfpQ6v9Sm7rfgySd8CTnasGxNwwib4Vi9
-mint txid: 5co8djfY8eAGqiigTyhVrHi8EJnwG7Yfv7MmWxetdhzNPyKraY9eKPwXmR1MfZTDVHBZ6VZ9qKPUNQjWqaGe7o8R
----
-
-## NFT
-
-Uses **@solana/kit** and **mpl-core** via UMI. Images and metadata are stored on Irys (decentralized storage).
-
-| Script | Command | What it does |
-|---|---|---|
-| `nft_image.ts` | `npm run nft:image` | Uploads your image to Irys, logs the image URI |
-| `nft_metadata.ts` | `npm run nft:metadata` | Builds the metadata JSON and uploads it, logs the metadata URI |
-| `nft_mint.ts` | `npm run nft:mint` | Mints the NFT on-chain using the metadata URI |
-
-Run them in order. Paste the URI logged by each step into the next script before running it.
-
-Your image URI:  https://gateway.irys.xyz/58ibBiK263ifDeqzqaMGMfAnFa2Nqxr5qN1M597AW95f
-metadata uri: https://gateway.irys.xyz/CaV2Z2acs3325MkyE9jYw1T3xC9DJwBaGWL1pgQBqKfW
-signature 4mAXXVo6gAKeqRxFCZETxsG4MKji9uhAjVHHntmfiWJMN2aNhdLTdFwRcYeyNSTizniY72VWir6GqVGPj8ysvnj5, asset : DEPzJiQk2Akq2D4moipxQGfLE8aP2jeBtmnQb1t7XVMv
-
-Current name:: My NFT | uri: https://gateway.irys.xyz/CaV2Z2acs3325MkyE9jYw1T3xC9DJwBaGWL1pgQBqKfW
-new metadata uri: https://gateway.irys.xyz/85wfggoo1fTgi1Ku5b4StaweGWbP6aXu8k3aj6TrGRvj
-signature: 5saekDAApUqMKtAM7b3HXnMGaZ2epTZtuXKQcULoZtGBNkvdhJJ2mnoUzi1adiUfFrARSuDpHSLoCzCgTosUkXfJ
-Updated name: My NFT | uri: https://gateway.irys.xyz/CaV2Z2acs3325MkyE9jYw1T3xC9DJwBaGWL1pgQBqKfW
+- [Solana — Tokens](https://solana.com/docs/tokens)
+- [Solana — Program Derived Addresses](https://solana.com/docs/core/pda)
+- [Solana Kit](https://www.solanakit.com/)
+- [Metaplex Core](https://developers.metaplex.com/core)
+- [Umi](https://developers.metaplex.com/umi)
